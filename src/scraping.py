@@ -40,8 +40,8 @@ def extrair_dados_card(card):
         subtitulo = None
         
     try:
-        tags_elements = card.find_elements(By.CLASS_NAME, "keywords")
-        tags = [tag.text for tag in tags_elements]
+        tags_elements = card.find_elements(By.CSS_SELECTOR, ".keywords a")
+        tags = [tag.text.strip() for tag in tags_elements]
     except:
         tags = []
         
