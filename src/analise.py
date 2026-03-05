@@ -25,6 +25,7 @@ def explodir_tags(df):
     df["tags"] = df["tags"].str.lower()
     return df
 
+
 def grafico_evolucao(df):
     termos = ["covid", "sus", "saúde indígena"]
 
@@ -40,6 +41,18 @@ def grafico_evolucao(df):
 
     plt.show()
     
+    
+def grafico_tags(df):
+    top_tags = df["tags"].value_counts().head(20)
+
+    top_tags.plot(kind="bar")
+    plt.title("Top 20 Tags")
+    plt.xlabel("Tag")
+    plt.ylabel("Frequência")
+
+    plt.show()
+    
+    
 def main():
     dados = carregar_dados()
 
@@ -49,6 +62,7 @@ def main():
     df = explodir_tags(df)
 
     grafico_evolucao(df)
+    grafico_tags(df)
 
 
 if __name__ == "__main__":
