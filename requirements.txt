@@ -1,4 +1,4 @@
-selenium
-pandas
-matplotlib
-webdriver-manager
+matplotlib==3.10.8
+pandas==3.0.1
+selenium==4.41.0
+webdriver_manager==4.0.2
