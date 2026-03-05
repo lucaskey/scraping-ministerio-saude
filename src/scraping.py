@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import json
+import os
 
 def iniciar_driver():
     options = webdriver.ChromeOptions()
@@ -111,7 +112,8 @@ def coletar_todas_noticias(driver):
     return todas_noticias
 
 
-def salvar_json(noticias, caminho="noticias.json"):
+def salvar_json(noticias, caminho="data/noticias.json"):
+    os.makedirs("data", exist_ok=True)
     with open(caminho, "w", encoding="utf-8") as f:
         json.dump(noticias, f, ensure_ascii=False, indent=2)
     print(f"Dados salvos em {caminho}")
@@ -120,13 +122,14 @@ def salvar_json(noticias, caminho="noticias.json"):
 def main():
     driver = iniciar_driver()
     
-    noticias = coletar_todas_noticias(driver)
-    
+    try:
+        noticias = coletar_todas_noticias(driver)
+    finally:
+        driver.quit()
+        
     print(f"Total coletado: {len(noticias)}")
     
     salvar_json(noticias)
-
-    driver.quit()
 
 
 if __name__ == "__main__":
