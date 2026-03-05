@@ -43,10 +43,21 @@ def grafico_evolucao(df):
     
     
 def grafico_tags(df):
-    top_tags = df["tags"].value_counts().head(20)
+    top_tags = df["tags"].value_counts().head(20)[::-1]
 
-    top_tags.plot(kind="bar")
-    plt.title("Top 20 Tags")
+    plt.figure(figsize=(12, 8))
+    ax = top_tags.plot(kind="barh") 
+
+    for bar in ax.patches:
+        val = int(bar.get_width())
+        ax.text(
+            bar.get_width() + 1,          
+            bar.get_y() + bar.get_height() / 2, 
+            str(val),                     
+            va="center", fontsize=9
+        )
+        
+    plt.title("Top 20 Termos Mais Citados nas Tags")
     plt.xlabel("Tag")
     plt.ylabel("Frequência")
 
@@ -61,7 +72,7 @@ def main():
     df = tratar_datas(df)
     df = explodir_tags(df)
 
-    grafico_evolucao(df)
+    # grafico_evolucao(df)
     grafico_tags(df)
 
 
