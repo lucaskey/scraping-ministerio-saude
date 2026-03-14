@@ -17,10 +17,6 @@ def iniciar_driver():
     return driver
 
 
-def acessar_url(driver, url):
-    driver.get(url)
-
-
 def coletar_cards(driver):
     cards = driver.find_elements(By.CLASS_NAME, "tile-collective-nitf-content")
     return cards
